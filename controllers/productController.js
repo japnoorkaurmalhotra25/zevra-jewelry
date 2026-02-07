@@ -16,10 +16,13 @@ exports.createProduct = async (req, res) => {
       isFeatured
     } = req.body;
 
-    // basic validation
     if (!name || !description || !price || !category || !metal || !weight) {
       return res.status(400).json({ message: "All required fields must be filled" });
     }
+
+    // Extract Cloudinary image URLs
+    console.log("FILES RECEIVED:", req.files);
+    const images = req.files ? req.files.map(file => file.path) : [];
 
     const product = await Product.create({
       name,
@@ -30,17 +33,20 @@ exports.createProduct = async (req, res) => {
       weight,
       stock,
       isFeatured,
-      createdBy: req.user.id // comes from authMiddleware
+      images,
+      createdBy: req.user.id
     });
 
     res.status(201).json({
-      message: "Product created successfully",
+      message: "Product created with images",
       product
     });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // @desc   Get all products (PUBLIC)
 // @route  GET /api/products

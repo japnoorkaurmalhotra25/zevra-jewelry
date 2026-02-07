@@ -6,6 +6,7 @@ const {
   updateProduct,
   deleteProduct
 } = require("../controllers/productController");
+const upload = require("../middleware/uploadMiddleware");
 
 const authMiddleware = require("../middleware/authMiddleware");
 const adminMiddleware = require("../middleware/adminMiddleware");
@@ -17,7 +18,14 @@ router.get("/", getAllProducts);
 router.get("/:id", getProductById);
 
 // ADMIN
-router.post("/", authMiddleware, adminMiddleware, createProduct);
+router.post(
+  "/",
+  authMiddleware,
+  adminMiddleware,
+  upload.array("images", 5),
+  createProduct
+);
+
 router.put("/:id", authMiddleware, adminMiddleware, updateProduct);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteProduct);
 
