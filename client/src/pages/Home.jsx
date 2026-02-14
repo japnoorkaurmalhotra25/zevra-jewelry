@@ -1,144 +1,158 @@
-import { useEffect, useState } from "react";
-import API from "../api";
-import { useCart } from "../context/CartContext";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await API.get("/products");
-        setProducts(res.data);
-      } catch (err) {
-        setError("Failed to load products");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
-  if (error) return <p style={{ textAlign: "center", color: "red" }}>{error}</p>;
-
   return (
-    <div style={page}>
-      <h2 style={title}>Our Jewelry Collection</h2>
+    <section
+      style={{
+        minHeight: "90vh",
+        display: "flex",
+        alignItems: "center",
+        padding: "0",
+        position: "relative",
+        overflow: "hidden",
+        width: "100vw",
+        boxSizing: "border-box"
+      }}
+    >
+      {/* BACKGROUND IMAGE - Full coverage */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 0
+        }}
+      >
+        <img
+          src="/hero-ring2.png"
+          alt="Luxury diamond ring"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover"
+          }}
+        />
+        {/* Subtle overlay for text contrast */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: "linear-gradient(to right, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.08) 40%, transparent 65%)"
+          }}
+        />
+      </div>
 
-      <div style={grid}>
-        {products.map((p) => (
-          <div
-            key={p._id}
-            onClick={() => navigate(`/product/${p._id}`)}
-            style={card}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-8px)";
-              e.currentTarget.style.boxShadow =
-                "0 18px 40px rgba(0,0,0,0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 10px 30px rgba(0,0,0,0.08)";
+      <div
+        style={{
+          width: "100%",
+          position: "relative",
+          zIndex: 1,
+          paddingLeft: "120px"
+        }}
+      >
+        {/* LEFT CONTENT */}
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          maxWidth: "600px"
+        }}>
+          <h1
+            style={{
+              fontFamily: "'Crimson Text', serif",
+              fontSize: "70px",
+              fontWeight: 400,
+              lineHeight: "1.2",
+              color: "#343131",
+              marginBottom: "48px",
+              letterSpacing: "0px",
+              textShadow: "0 1px 4px rgba(0,0,0,0.08)"
             }}
           >
-            <img src={p.images?.[0]} alt={p.name} style={image} />
+            Crafted for moments
+            <br />
+            <span style={{ 
+              fontStyle: "italic"
+            }}>
+              that last forever
+            </span>
+          </h1>
 
-            <h3 style={{ marginTop: "16px" }}>{p.name}</h3>
-
-            <p style={price}>₹{p.price}</p>
+          <div style={{ display: "flex", gap: "16px" }}>
+            <button
+              onClick={() => navigate("/createOwn")}
+              onMouseEnter={(e) => {
+                e.target.style.background = "#b8924a";
+                e.target.style.transform = "translateY(-2px)";
+                e.target.style.boxShadow = "0 12px 28px rgba(184, 146, 74, 0.4)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = "#a68547";
+                e.target.style.transform = "translateY(0)";
+                e.target.style.boxShadow = "0 6px 20px rgba(166, 133, 71, 0.35)";
+              }}
+              style={{
+                padding: "16px 38px",
+                background: "#a68547",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "4px",
+                fontSize: "14px",
+                fontWeight: 500,
+                fontFamily: "'Montserrat', sans-serif",
+                cursor: "pointer",
+                boxShadow: "0 6px 20px rgba(166, 133, 71, 0.35)",
+                letterSpacing: "0.5px",
+                transition: "all 0.3s ease"
+              }}
+            >
+              Create Your Jewelry
+            </button>
 
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                addToCart(p);
-                navigate("/cart");
+              onClick={() => navigate("/products")}
+              onMouseEnter={(e) => {
+                e.target.style.background = "#a68547";
+                e.target.style.color = "#ffffff";
+                e.target.style.borderColor = "#a68547";
+                e.target.style.transform = "translateY(-2px)";
+                e.target.style.boxShadow = "0 12px 28px rgba(166, 133, 71, 0.35)";
               }}
-              style={btn}
-              onMouseEnter={(e) =>
-                (e.target.style.background = "#c9a227")
-              }
-              onMouseLeave={(e) =>
-                (e.target.style.background = "#d4af37")
-              }
+              onMouseLeave={(e) => {
+                e.target.style.background = "transparent";
+                e.target.style.color = "#343131";
+                e.target.style.borderColor = "#343131";
+                e.target.style.transform = "translateY(0)";
+                e.target.style.boxShadow = "0 4px 16px rgba(0, 0, 0, 0.1)";
+              }}
+              style={{
+                padding: "16px 38px",
+                background: "transparent",
+                color: "#343131",
+                border: "1px solid #343131",
+                borderRadius: "4px",
+                fontSize: "14px",
+                fontWeight: 500,
+                fontFamily: "'Montserrat', sans-serif",
+                cursor: "pointer",
+                letterSpacing: "0.5px",
+                transition: "all 0.3s ease",
+                boxShadow: "0 4px 16px rgba(0, 0, 0, 0.1)"
+              }}
             >
-              Add to Cart
+              Explore Collections
             </button>
           </div>
-        ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
 export default Home;
-
-/* ---------- STYLES ---------- */
-
-const page = {
-  padding: "60px 40px",
-  backgroundColor: "#f5efe6",
-  minHeight: "100vh"
-};
-
-const title = {
-  textAlign: "center",
-  fontFamily: "serif",
-  fontSize: "36px",
-  marginBottom: "50px"
-};
-
-const grid = {
-  display: "grid",
-  gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-  gap: "30px",
-  maxWidth: "1300px",
-  margin: "0 auto"
-};
-
-const card = {
-  backgroundColor: "#fff",
-  borderRadius: "20px",
-  padding: "26px",
-  height: "460px", // 🔥 TALLER CARD
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  cursor: "pointer",
-  transition: "all 0.35s ease",
-  boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
-};
-
-const image = {
-  width: "100%",
-  height: "260px",
-  objectFit: "contain",
-  borderRadius: "14px",
-  backgroundColor: "#fafafa"
-};
-
-const price = {
-  color: "#d4af37",
-  fontWeight: "600",
-  fontSize: "18px"
-};
-
-const btn = {
-  marginTop: "12px",
-  padding: "14px",
-  backgroundColor: "#d4af37",
-  color: "#fff",
-  border: "none",
-  borderRadius: "10px",
-  fontSize: "15px",
-  fontWeight: "600",
-  cursor: "pointer",
-  transition: "background 0.3s ease"
-};

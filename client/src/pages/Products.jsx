@@ -1,67 +1,49 @@
 import { useEffect, useState } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
 import API from "../api";
 import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
-  const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const { addToCart } = useCart();
+  const [loading, setLoading] = useState(true);
 
-  const category = searchParams.get("category");
-  const metal = searchParams.get("metal");
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    API.get("/products").then((res) => setProducts(res.data));
+    const fetchProducts = async () => {
+      const res = await API.get("/products");
+      setProducts(res.data);
+      setLoading(false);
+    };
+    fetchProducts();
   }, []);
 
-  const filtered = products.filter((p) => {
-    if (category && p.category !== category) return false;
-    if (metal && p.metal !== metal) return false;
-    return true;
-  });
-
-  const setMetal = (m) => {
-    navigate(`/products?category=${category}&metal=${m}`);
-  };
+  if (loading) return <p style={{ textAlign: "center" }}>Loading...</p>;
 
   return (
-    <div style={page}>
-      <h2 style={title}>{category?.toUpperCase()} COLLECTION</h2>
+    <div style={{ padding: "40px", background: "#f5efe6" }}>
+      <h2 style={{ textAlign: "center", fontFamily: "serif" }}>
+        Our Jewelry Collection
+      </h2>
 
-      {/* Metal Filter */}
-      <div style={filters}>
-        {["gold", "silver", "diamond"].map((m) => (
-          <button
-            key={m}
-            onClick={() => setMetal(m)}
-            style={filterBtn}
-          >
-            {m.toUpperCase()}
-          </button>
-        ))}
-      </div>
-
-      {/* Products */}
       <div style={grid}>
-        {filtered.map((p) => (
+        {products.map((p) => (
           <div
             key={p._id}
             style={card}
             onClick={() => navigate(`/product/${p._id}`)}
           >
-            <img src={p.images?.[0]} alt={p.name} style={image} />
+            <img src={p.images?.[0]} alt={p.name} style={img} />
             <h3>{p.name}</h3>
-            <p style={price}>₹{p.price}</p>
+            <p style={{ color: "#d4af37" }}>₹{p.price}</p>
 
             <button
-              style={btn}
               onClick={(e) => {
                 e.stopPropagation();
                 addToCart(p);
-                navigate("/cart");
               }}
+              style={btn}
             >
               Add to Cart
             </button>
@@ -72,73 +54,36 @@ function Products() {
   );
 }
 
-/* ================= STYLES ================= */
+export default Products;
 
-const page = {
-  background: "#f8f5f0",
-  minHeight: "100vh",
-  padding: "50px"
-};
-
-const title = {
-  textAlign: "center",
-  fontFamily: "serif",
-  fontSize: "34px",
-  marginBottom: "30px"
-};
-
-const filters = {
-  display: "flex",
-  justifyContent: "center",
-  gap: "14px",
-  marginBottom: "40px"
-};
-
-const filterBtn = {
-  padding: "10px 20px",
-  borderRadius: "20px",
-  border: "1px solid #d4af37",
-  background: "#fff",
-  cursor: "pointer",
-  fontWeight: "600"
-};
-
+/* styles */
 const grid = {
   display: "grid",
   gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-  gap: "28px"
+  gap: "24px",
+  marginTop: "40px"
 };
 
 const card = {
   background: "#fff",
-  borderRadius: "18px",
   padding: "20px",
-  textAlign: "center",
-  boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
+  borderRadius: "16px",
   cursor: "pointer",
-  transition: "transform 0.3s"
+  boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
 };
 
-const image = {
+const img = {
   width: "100%",
   height: "220px",
   objectFit: "contain"
 };
 
-const price = {
-  color: "#d4af37",
-  fontWeight: "600",
-  margin: "10px 0"
-};
-
 const btn = {
   width: "100%",
   padding: "12px",
+  marginTop: "10px",
   background: "#d4af37",
-  color: "#fff",
   border: "none",
-  borderRadius: "8px",
-  cursor: "pointer"
+  color: "#fff",
+  borderRadius: "8px"
 };
-
-export default Products;

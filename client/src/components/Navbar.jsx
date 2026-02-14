@@ -57,7 +57,9 @@ const nav = {
   boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
   position: "sticky",
   top: 0,
-  zIndex: 100
+  zIndex: 100,
+  width: "100vw",
+  boxSizing: "border-box"
 };
 
 const logo = {
@@ -76,7 +78,7 @@ const right = {
 
 const link = {
   textDecoration: "none",
-  color: "#333",
+  color: "#343131",
   fontSize: "15px",
   fontWeight: "500"
 };
@@ -109,4 +111,3 @@ const dropItem = {
   cursor: "pointer",
   color: "#333"
 };
-
