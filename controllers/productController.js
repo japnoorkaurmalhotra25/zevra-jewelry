@@ -42,9 +42,9 @@ exports.createProduct = async (req, res) => {
       product
     });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
+  console.error("GET PRODUCTS ERROR:", error);
+  res.status(500).json({ message: "Server error", error: error.message });
+}
 };
 
 

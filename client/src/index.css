@@ -1,40 +1,40 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  color: #213547;
+  background-color: #ffffff;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  display: block;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+a {
+  font-weight: 500;
+  color: #d4af37;
+  text-decoration: inherit;
 }
+a:hover { color: #c9a227; }
 
+img { max-width: 100%; }
+
+/* ── Global button reset ── */
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -42,27 +42,102 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: all 0.25s ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+/* ══════════════════════════════════════════
+   NAVBAR RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  nav {
+    padding: 12px 20px !important;
   }
-  a:hover {
-    color: #747bff;
+  .nav-links {
+    display: none !important;
   }
-  button {
-    background-color: #f9f9f9;
+}
+
+/* ══════════════════════════════════════════
+   HOME PAGE RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  /* Home page padding */
+  div[style*="padding: 60px 40px"] {
+    padding: 30px 16px !important;
   }
+}
+
+/* ══════════════════════════════════════════
+   PRODUCTS PAGE RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .filter-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    padding: 0 12px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   CART PAGE RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cart-layout {
+    grid-template-columns: 1fr !important;
+  }
+  .cart-item-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+  .cart-item-card img {
+    width: 100% !important;
+    height: 180px !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   PRODUCT DETAIL RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .product-detail-container {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    padding: 20px !important;
+  }
+  .product-detail-page {
+    padding: 20px 12px !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   ABOUT PAGE RESPONSIVE  
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .about-features {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .about-card {
+    padding: 30px 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-features {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ══════════════════════════════════════════
+   GLOBAL RESPONSIVE TYPOGRAPHY
+══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  h1 { font-size: 2rem !important; }
+  h2 { font-size: 1.6rem !important; }
+  h3 { font-size: 1.2rem !important; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.6rem !important; }
+  h2 { font-size: 1.3rem !important; }
 }

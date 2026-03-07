@@ -36,6 +36,7 @@ function Navbar() {
             </div>
           )}
         </div>
+        <div style={avatar} onClick={() => navigate("/auth")}>👤</div>
 
         {/* Profile */}
         <div style={avatar}>👤</div>

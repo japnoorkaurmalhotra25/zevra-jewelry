@@ -1,193 +1,242 @@
+import { useNavigate } from "react-router-dom";
+import { useWindowSize } from "../hooks/useWindowSize";
+
 function About() {
+  const navigate = useNavigate();
+  const { isMobile, isTablet } = useWindowSize();
+
   return (
-    <div
-      style={{
-        backgroundColor: "#f5efe6",
-        minHeight: "100vh",
-        padding: "70px 20px"
-      }}
-    >
-      {/* Hero Section */}
+    <div style={{ backgroundColor: "#f5f0eb", minHeight: "100vh", fontFamily: "'Montserrat', system-ui, sans-serif" }}>
+
+      {/* HERO */}
       <div
         style={{
-          maxWidth: "1000px",
-          margin: "0 auto",
-          textAlign: "center",
-          marginBottom: "70px"
+          position: "relative",
+          height: isMobile ? "260px" : "420px",
+          overflow: "hidden"
         }}
       >
-        <h1
+        <img
+          src="/about-hero.jpeg"
+          alt="About"
           style={{
-            fontSize: "44px",
-            fontFamily: "serif",
-            color: "#2c3e50",
-            marginBottom: "16px"
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "85% center"
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to right, rgba(245,240,235,0.85) 30%, rgba(245,240,235,0.3) 60%, transparent)"
+          }}
+        />
+
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-50%)",
+            left: isMobile ? "50px" : "150px"
           }}
         >
-          About ZEVRA
-        </h1>
+          <h1
+            style={{
+              fontFamily: "Georgia, serif",
+              fontSize: isMobile ? "38px" : "58px",
+              fontWeight: "400",
+              margin: 0,
+              color: "#3c3737"
+            }}
+          >
+            About Us
+          </h1>
+        </div>
+      </div>
+
+      {/* INTRO */}
+      <div
+        style={{
+          maxWidth: "1100px",
+          margin: "0 auto",
+          padding: isMobile ? "40px 20px" : "70px 40px"
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "Georgia, serif",
+            fontSize: isMobile ? "24px" : "36px",
+            fontWeight: "400",
+            marginBottom: "20px",
+            color: "#2c2c2c"
+          }}
+        >
+          Creating Timeless Jewelry of Exceptional Beauty
+        </h2>
 
         <p
           style={{
-            fontSize: "18px",
-            color: "#777",
-            maxWidth: "600px",
-            margin: "0 auto",
-            lineHeight: "1.7"
+            color: "#6b6b6b",
+            lineHeight: "1.9",
+            maxWidth: "900px"
           }}
         >
-          Jewelry that captures elegance, emotion, and timeless beauty —
-          designed to be cherished forever.
-        </p>
-      </div>
-
-      {/* Content Card */}
-      <div
-        style={{
-          maxWidth: "1000px",
-          margin: "0 auto",
-          backgroundColor: "#fff",
-          borderRadius: "22px",
-          padding: "50px",
-          boxShadow: "0 18px 40px rgba(0,0,0,0.08)"
-        }}
-      >
-        <p style={paragraphStyle}>
-          ZEVRA was founded with a singular vision — to create jewelry that feels
-          personal, luxurious, and everlasting. Every piece is thoughtfully
-          designed to reflect grace, confidence, and individuality.
+          ZEVRA is a premium jewelry brand dedicated to exceptional
+          craftsmanship, quality, and elegance.
         </p>
 
-        <p style={paragraphStyle}>
-          Our collections blend traditional craftsmanship with modern design,
-          using premium metals and ethically sourced materials. From everyday
-          elegance to statement pieces, ZEVRA is crafted to complement every
-          chapter of your story.
+        <p
+          style={{
+            color: "#6b6b6b",
+            lineHeight: "1.9",
+            maxWidth: "900px"
+          }}
+        >
+         Our passion lies in creating exquisite, timeless jewelry, meticulously crafted to bring you joy at life's happiest moments, pairing luxurious artistry with conflict-free diamonds, precious gemstones, and high-quality metals that are as rare as they are one of a kind.
         </p>
 
-        <p style={paragraphStyle}>
-          Jewelry is more than adornment — it’s emotion, memory, and meaning.
-          That belief guides everything we create.
-        </p>
+        {/* Divider */}
+        <div
+          style={{
+            height: "1px",
+            background: "#e6dfd6",
+            margin: "40px 0"
+          }}
+        />
 
-        {/* Why ZEVRA */}
-        <div style={{ marginTop: "60px" }}>
-          <h2
-            style={{
-              textAlign: "center",
-              fontFamily: "serif",
-              fontSize: "30px",
-              color: "#2c3e50",
-              marginBottom: "40px"
-            }}
-          >
-            Why Choose ZEVRA
-          </h2>
-
+        {/* CRAFT SECTION */}
+        <div
+          style={{
+            background: "#f8f5f1",
+            padding: isMobile ? "25px" : "40px",
+            borderRadius: "10px"
+          }}
+        >
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-              gap: "25px"
+              gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+              gap: "40px",
+              alignItems: "center"
             }}
           >
-            {features.map((f) => (
-              <div
-                key={f.title}
+            {/* IMAGE */}
+            <img
+              src="/about-craft.jpg"
+              alt="Craft"
+              style={{
+                width: "100%",
+                borderRadius: "6px",
+                objectFit: "cover"
+              }}
+            />
+
+            {/* TEXT */}
+            <div>
+              <h3
                 style={{
-                  backgroundColor: "#fafafa",
-                  padding: "30px",
-                  borderRadius: "18px",
-                  textAlign: "center",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  cursor: "default"
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 12px 30px rgba(0,0,0,0.12)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
+                  fontFamily: "Georgia, serif",
+                  fontSize: "28px",
+                  fontWeight: "400",
+                  marginBottom: "15px"
                 }}
               >
-                <div style={{ fontSize: "30px", marginBottom: "14px" }}>
-                  {f.icon}
-                </div>
-                <h4
-                  style={{
-                    fontSize: "18px",
-                    marginBottom: "10px",
-                    color: "#2c3e50"
-                  }}
-                >
-                  {f.title}
-                </h4>
-                <p
-                  style={{
-                    fontSize: "14px",
-                    color: "#666",
-                    lineHeight: "1.6"
-                  }}
-                >
-                  {f.text}
-                </p>
+                Crafting Perfection
+              </h3>
+
+              <p style={{ color: "#6b6b6b", lineHeight: "1.8" }}>
+                ZEVRA is dedicated to exceptional craftsmanship, quality, and
+                elegance. Our passion is in creating exquisite, timeless
+                jewelry, meticulously crafted to bring joy at the happiest
+                moments using the finest materials.
+              </p>
+
+              {/* FEATURES */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "15px",
+                  marginTop: "25px"
+                }}
+              >
+                {[
+                  "Superior Craftsmanship",
+                  "Certified Conflict-Free Diamonds",
+                  "Trusted & Reliable",
+                  "Trusted & Reliable"
+                ].map((item) => (
+                  <div
+                    key={item}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "10px",
+                      color: "#555",
+                      fontSize: "14px"
+                    }}
+                  >
+                    <span style={{ color: "#b89a5d" }}>◆</span>
+                    {item}
+                  </div>
+                ))}
               </div>
-            ))}
+
+              <button
+                onClick={() => navigate("/products")}
+                style={{
+                  marginTop: "30px",
+                  padding: "12px 40px",
+                  background: "#a68547",
+                  border: "none",
+                  color: "#fff",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontWeight: "600"
+                }}
+              >
+                Learn More
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Footer Note */}
+        {/* BOTTOM FEATURES */}
         <div
           style={{
-            marginTop: "70px",
-            textAlign: "center"
+            marginTop: "50px",
+            display: "grid",
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+            gap: "40px"
           }}
         >
-          <p
-            style={{
-              fontFamily: "serif",
-              fontSize: "20px",
-              color: "#d4af37"
-            }}
-          >
-            Crafted with love. Designed to last ✨
-          </p>
+          {[
+            "Superior Craftsmanship",
+            "Certified Conflict-Free Diamonds",
+            "Trusted & Reliable",
+            "Trusted & Reliable"
+          ].map((item) => (
+            <div
+              key={item}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "12px",
+                color: "#5f5f5f"
+              }}
+            >
+              <span style={{ color: "#b89a5d" }}>◆</span>
+              {item}
+            </div>
+          ))}
         </div>
       </div>
     </div>
   );
 }
-
-const paragraphStyle = {
-  fontSize: "16px",
-  lineHeight: "1.8",
-  color: "#555",
-  marginBottom: "22px"
-};
-
-const features = [
-  {
-    icon: "💎",
-    title: "Premium Quality",
-    text: "Carefully crafted using high-quality metals and finishes."
-  },
-  {
-    icon: "✨",
-    title: "Timeless Design",
-    text: "Elegant pieces that never go out of style."
-  },
-  {
-    icon: "🤍",
-    title: "Ethical Craft",
-    text: "Responsibly sourced materials and mindful craftsmanship."
-  },
-  {
-    icon: "🎁",
-    title: "Perfect for Gifting",
-    text: "Designed to mark life’s most meaningful moments."
-  }
-];
 
 export default About;
